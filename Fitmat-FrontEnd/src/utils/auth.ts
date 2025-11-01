@@ -92,18 +92,54 @@ export function isAdmin(): boolean {
   return hasRole("ADMIN");
 }
 
+// Get API base URL - ใช้ API routes ถ้าไม่ได้ใช้ static export, ไม่งั้นเรียก backend โดยตรง
+const getApiBaseUrl = (): string => {
+  // ถ้าใช้ static export หรือไม่ได้อยู่ใน production Next.js
+  if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_USE_STATIC_EXPORT === 'true') {
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000/api';
+    return baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  }
+  // ใช้ Next.js API routes ถ้าไม่ได้ใช้ static export
+  return '/api/auth';
+};
+
+// Helper function สำหรับเรียก backend โดยตรง
+const callBackendDirectly = async (endpoint: string, payload: any): Promise<AuthResponse> => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000/api';
+  const apiUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  
+  const response = await fetch(`${apiUrl}${endpoint}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Request failed");
+  }
+
+  return data;
+};
+
 // Logout function
 export async function logout(): Promise<void> {
   try {
-    await fetch("/api/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "logout",
-      }),
-    });
+    // ถ้าใช้ static export ให้ข้าม API call (ไม่มี server-side)
+    if (process.env.NEXT_PUBLIC_USE_STATIC_EXPORT !== 'true') {
+      await fetch("/api/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "logout",
+        }),
+      });
+    }
   } catch (error) {
     console.error("Logout API error:", error);
   } finally {
@@ -114,6 +150,12 @@ export async function logout(): Promise<void> {
 
 // Login function
 export async function login(email: string, password: string): Promise<AuthResponse> {
+  // ถ้าใช้ static export ให้เรียก backend โดยตรง
+  if (process.env.NEXT_PUBLIC_USE_STATIC_EXPORT === 'true') {
+    return callBackendDirectly("/login", { email, password });
+  }
+
+  // ใช้ Next.js API routes
   const response = await fetch("/api/auth", {
     method: "POST",
     headers: {
@@ -136,6 +178,12 @@ export async function login(email: string, password: string): Promise<AuthRespon
 
 // Register function
 export async function register(email: string, password: string): Promise<AuthResponse> {
+  // ถ้าใช้ static export ให้เรียก backend โดยตรง
+  if (process.env.NEXT_PUBLIC_USE_STATIC_EXPORT === 'true') {
+    return callBackendDirectly("/register", { email, password });
+  }
+
+  // ใช้ Next.js API routes
   const response = await fetch("/api/auth", {
     method: "POST",
     headers: {

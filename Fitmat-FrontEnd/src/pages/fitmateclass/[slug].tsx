@@ -95,7 +95,7 @@ export default function ClassDetailPage() {
 
   // ตรวจสอบว่าผู้ใช้สมัครแล้วหรือยัง (แยก useEffect เพื่อรอให้ user ถูก set ก่อน)
   useEffect(() => {
-    if (!user?.id || !enrollments.length) {
+    if (!user?.id || !enrollments || !Array.isArray(enrollments) || !enrollments.length) {
       setIsEnrolled(false);
       return;
     }

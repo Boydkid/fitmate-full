@@ -281,3 +281,6 @@ const nextConfig: NextConfig = {
 2. ตรวจสอบ GitHub Pages documentation: https://docs.github.com/en/pages
 3. ตรวจสอบ Next.js deployment docs: https://nextjs.org/docs/deployment
 
+
+
+

@@ -1,6 +1,5 @@
 ﻿import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import UserControl from "../../components/admin/UserControl";
 import ClassControl from "../../components/admin/ClassControl";
 import ClassCategory from "../../components/admin/ClassCategory";
 import ContactControl from "../../components/admin/ContactControl";
@@ -138,25 +137,19 @@ export default function CustomerManagementSystem() {
         {isAdmin && (
           <div className="flex flex-col gap-6 sm:gap-8 md:gap-10">
             <div className="transform transition-all duration-300 hover:scale-[1.01]">
-              <UserControl userId={adminId} token={token} />
+              <ClassCategory userId={adminId} token={token} className="flex-1" />
             </div>
 
-            <div className="grid gap-6 sm:gap-8 md:gap-10 lg:grid-cols-12 lg:items-stretch">
-              <div className="transform transition-all duration-300 hover:scale-[1.01] lg:col-span-8 flex">
-                <ClassControl userId={adminId} token={token} className="flex-1" />
-              </div>
-              <div className="transform transition-all duration-300 hover:scale-[1.01] lg:col-span-4 flex">
-                <ClassCategory userId={adminId} token={token} className="flex-1" />
-              </div>
+            <div className="transform transition-all duration-300 hover:scale-[1.01]">
+              <ClassControl userId={adminId} token={token} className="flex-1" />
             </div>
 
-            <div className="grid gap-6 sm:gap-8 md:gap-10 lg:grid-cols-12">
-              <div className="transform transition-all duration-300 hover:scale-[1.01] lg:col-span-7">
-                <ReviewControl userId={adminId} token={token} />
-              </div>
-              <div className="transform transition-all duration-300 hover:scale-[1.01] lg:col-span-5">
-                <TrainerControl userId={adminId} token={token} />
-              </div>
+            <div className="transform transition-all duration-300 hover:scale-[1.01]">
+              <TrainerControl userId={adminId} token={token} />
+            </div>
+
+            <div className="transform transition-all duration-300 hover:scale-[1.01]">
+              <ReviewControl userId={adminId} token={token} />
             </div>
 
             <div className="transform transition-all duration-300 hover:scale-[1.01]">

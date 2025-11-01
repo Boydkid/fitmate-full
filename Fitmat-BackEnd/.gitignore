@@ -26,3 +26,7 @@ tmp/
 .env
 .env.local
 .env.*.local
+
+# Test reports
+test-report/
+coverage/

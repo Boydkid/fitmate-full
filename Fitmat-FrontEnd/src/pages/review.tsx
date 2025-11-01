@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Header from "../../components/Layout/Header";
 import Footer from "../../components/Layout/Footer";
 
@@ -26,6 +27,7 @@ type Review = {
 };
 
 export default function Review() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [summary, setSummary] = useState<ReviewSummary | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -270,7 +272,7 @@ export default function Review() {
             {/* Service 1 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border-t-4 border-red-500">
               <img
-                src="/images/service1.jpg"
+                src="/images/111.png"
                 alt="วางแผนการออกกำลังกาย"
                 className="w-full h-40 object-cover rounded-xl mb-4"
               />
@@ -279,12 +281,17 @@ export default function Review() {
                 ออกแบบโปรแกรมเฉพาะบุคคล
                 โดยเทรนเนอร์มืออาชีพตามเป้าหมายที่คุณต้องการ
               </p>
-              <span className="text-red-500 font-semibold">ขอข้อมูลบริการ</span>
+              <button
+                onClick={() => router.push("/contactus")}
+                className="text-red-500 font-semibold hover:text-red-600 transition-colors cursor-pointer"
+              >
+                ขอข้อมูลบริการ
+              </button>
             </div>
             {/* Service 2 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border-t-4 border-red-500">
               <img
-                src="/images/service2.jpg"
+                src="/images/222.png"
                 alt="วิเคราะห์พฤติกรรมและไลฟ์สไตล์"
                 className="w-full h-40 object-cover rounded-xl mb-4"
               />
@@ -294,12 +301,17 @@ export default function Review() {
               <p className="text-gray-600 mb-4">
                 ทีมงานมืออาชีพช่วยวิเคราะห์และให้คำแนะนำเพื่อผลลัพธ์ที่ดีที่สุด
               </p>
-              <span className="text-red-500 font-semibold">ขอข้อมูลบริการ</span>
+              <button
+                onClick={() => router.push("/contactus")}
+                className="text-red-500 font-semibold hover:text-red-600 transition-colors cursor-pointer"
+              >
+                ขอข้อมูลบริการ
+              </button>
             </div>
             {/* Service 3 */}
             <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border-t-4 border-red-500">
               <img
-                src="/images/service3.jpg"
+                src="/images/333.png"
                 alt="ติดตามผลอย่างใกล้ชิด"
                 className="w-full h-40 object-cover rounded-xl mb-4"
               />
@@ -308,7 +320,12 @@ export default function Review() {
                 เทรนเนอร์คอยติดตามและปรับแผนอย่างต่อเนื่อง
                 พร้อมรายงานผลลัพธ์ให้คุณทราบ
               </p>
-              <span className="text-red-500 font-semibold">ขอข้อมูลบริการ</span>
+              <button
+                onClick={() => router.push("/contactus")}
+                className="text-red-500 font-semibold hover:text-red-600 transition-colors cursor-pointer"
+              >
+                ขอข้อมูลบริการ
+              </button>
             </div>
           </div>
         </div>
